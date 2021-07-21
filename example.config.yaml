@@ -1,0 +1,22 @@
+service:
+  slemankab:
+    baseUrl: "https://daftarvaksin.slemankab.go.id/_adm/api"
+
+scheduler:
+  enable: true
+  every: 2m
+
+smtp:
+  enable: false
+  host: "smtp.gmail.com"
+  port: 587
+  sender: "email@gmail.com"
+  password: "password"
+  subject: "Jadwal Vaksin Tersedia"
+
+emails:
+  - "email@email.com"
+
+participant:
+  nik: "3323050212970001"
+  age: 23
