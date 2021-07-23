@@ -51,8 +51,10 @@ func (c *CheckQuotaCommand) Check(ctx context.Context) error {
 
 	c.logResult(schedules)
 
-	if err := c.sendEmail(schedules); err != nil {
-		log.Println(err)
+	if !c.checkSchedulesEmpty(schedules) {
+		if err := c.sendEmail(schedules); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -80,6 +82,10 @@ func (c *CheckQuotaCommand) toScheduleRequest(faskes faskes.Faskes) *slemankab.S
 		NIK:      c.Config.Participant.Nik,
 		Age:      c.Config.Participant.Age,
 	}
+}
+
+func (c *CheckQuotaCommand) checkSchedulesEmpty(schedules schedule.Schedules) bool {
+	return len(schedules) == 0
 }
 
 func (c *CheckQuotaCommand) sendEmail(schedules schedule.Schedules) error {
